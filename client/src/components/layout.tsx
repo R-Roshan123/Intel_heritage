@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <History className="h-6 w-6 text-white" />
         </div>
         <div>
-          <h1 className="font-serif text-xl font-bold tracking-tight text-slate-100">Chronos</h1>
+          <h1 className="font-serif text-xl font-bold tracking-tight text-slate-100">Legacy Atlas</h1>
           <p className="text-xs text-slate-400 uppercase tracking-widest font-medium">Research Core</p>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)}>
               <Menu className="h-6 w-6" />
             </Button>
-            <span className="font-serif font-bold text-lg text-primary">Chronos</span>
+            <span className="font-serif font-bold text-lg text-primary">Legacy Atlas</span>
           </div>
         </header>
 

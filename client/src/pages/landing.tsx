@@ -11,9 +11,9 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 bg-amber-500 rounded-md flex items-center justify-center">
-              <span className="font-serif font-bold text-white text-lg">C</span>
+              <span className="font-serif font-bold text-white text-lg">L</span>
             </div>
-            <span className="font-serif font-bold text-xl text-white tracking-tight">Chronos</span>
+            <span className="font-serif font-bold text-xl text-white tracking-tight">Legacy Atlas</span>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/dashboard">
@@ -47,7 +47,7 @@ export default function LandingPage() {
           
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight animate-in slide-in-from-bottom-8 duration-1000 delay-200">
             Uncover History with <br/>
-            <span className="text-amber-500">Intelligent Compression</span>
+            <span className="text-amber-500">Legacy Atlas</span>
           </h1>
           
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed animate-in slide-in-from-bottom-8 duration-1000 delay-300">
