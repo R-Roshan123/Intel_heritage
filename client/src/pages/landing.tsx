@@ -8,7 +8,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Navigation */}
       <nav className="absolute top-0 w-full z-50 border-b border-white/10 bg-black/20 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 bg-amber-500 rounded-md flex items-center justify-center">
               <span className="font-serif font-bold text-white text-lg">L</span>
@@ -16,7 +16,7 @@ export default function LandingPage() {
             <span className="font-serif font-bold text-xl text-white tracking-tight">Legacy Atlas</span>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/dashboard">
+            <Link href="/login">
               <Button variant="secondary" className="font-medium">
                 Researcher Login
               </Button>
@@ -37,13 +37,6 @@ export default function LandingPage() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-8 pt-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-200 text-sm font-medium backdrop-blur-sm animate-in fade-in zoom-in duration-1000 delay-100">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-            </span>
-            Intel Optimized Architecture
-          </div>
           
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight animate-in slide-in-from-bottom-8 duration-1000 delay-200">
             Uncover History with <br/>
@@ -54,17 +47,6 @@ export default function LandingPage() {
             A next-generation platform for cultural heritage researchers. 
             Compress gigabytes of archaeological reports into structured, searchable insights using advanced NLP.
           </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in slide-in-from-bottom-8 duration-1000 delay-500">
-            <Link href="/dashboard">
-              <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white font-medium h-12 px-8 text-lg rounded-full shadow-lg shadow-amber-900/20 transition-all hover:scale-105">
-                Access Dashboard <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10 h-12 px-8 text-lg rounded-full backdrop-blur-sm">
-              View Documentation
-            </Button>
-          </div>
         </div>
       </div>
 

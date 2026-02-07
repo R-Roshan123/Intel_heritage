@@ -30,28 +30,59 @@ export default function UploadPage() {
     setFiles(files.filter(f => f.name !== name));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (files.length === 0) return;
     
     setUploading(true);
     setProgress(0);
-    
-    // Simulation of upload & compression process
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setUploading(false);
-          setFiles([]);
-          toast({
-            title: "Processing Complete",
-            description: "Files have been compressed and indexed successfully.",
-          });
-          return 100;
-        }
-        return prev + 5;
-      });
+
+    const progressTimer = setInterval(() => {
+      setProgress(prev => (prev >= 90 ? 90 : prev + 5));
     }, 150);
+    
+    try {
+      const storedUser = localStorage.getItem("user");
+      const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+      const payload = {
+        files: files.map(file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        })),
+        uploaderName: parsedUser?.fullName || parsedUser?.username || undefined,
+        uploaderEmail: parsedUser?.email || undefined,
+      };
+
+      const response = await fetch("/api/research/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || "Upload failed");
+      }
+
+      setProgress(100);
+      setFiles([]);
+      toast({
+        title: "Processing Complete",
+        description: "Files saved to the research database.",
+      });
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast({
+        title: "Upload failed",
+        description: "Unable to save files to the research database.",
+        variant: "destructive",
+      });
+    } finally {
+      clearInterval(progressTimer);
+      setUploading(false);
+    }
   };
 
   return (

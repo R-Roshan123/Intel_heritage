@@ -10,19 +10,65 @@ import {
   X,
   History
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [userName, setUserName] = useState("Researcher");
+  const [userTitle, setUserTitle] = useState("Signed In");
+
+  useEffect(() => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        return;
+      }
+
+      const parsedUser = JSON.parse(storedUser) as {
+        fullName?: string;
+        username?: string;
+        email?: string;
+        role?: string;
+        department?: string;
+      };
+
+      const displayName = parsedUser.fullName || parsedUser.username || parsedUser.email;
+      if (displayName) {
+        setUserName(displayName);
+      }
+
+      const role = parsedUser.role?.trim();
+      const department = parsedUser.department?.trim();
+      if (role && department) {
+        setUserTitle(`${role} - ${department}`);
+      } else if (role) {
+        setUserTitle(role);
+      } else if (department) {
+        setUserTitle(department);
+      }
+    } catch (error) {
+      console.error("Failed to read user from localStorage", error);
+    }
+  }, []);
+
+  const userInitials = useMemo(() => {
+    const parts = userName.split(" ").filter(Boolean);
+    if (parts.length === 0) {
+      return "U";
+    }
+    if (parts.length === 1) {
+      return parts[0].slice(0, 2).toUpperCase();
+    }
+    return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+  }, [userName]);
 
   const navigation = [
-    { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Research & Search', href: '/search', icon: Search },
-    { name: 'Data Upload', href: '/upload', icon: Upload },
-    { name: 'Knowledge Graph', href: '/insights', icon: BookOpen },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Research & Search", href: "/search", icon: Search },
+    { name: "Data Upload", href: "/upload", icon: Upload },
   ];
 
   const SidebarContent = () => (
@@ -59,12 +105,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       <div className="p-4 border-t border-slate-800">
-        <Link href="/settings">
-          <div className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-400 hover:text-slate-200 cursor-pointer rounded-lg hover:bg-slate-800/50">
-            <Settings className="h-5 w-5" />
-            Settings
-          </div>
-        </Link>
         <Link href="/">
           <div className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-red-400 hover:text-red-300 cursor-pointer rounded-lg hover:bg-red-950/20 mt-1">
             <LogOut className="h-5 w-5" />
@@ -76,11 +116,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="p-6 bg-slate-950">
         <div className="flex items-center gap-3">
           <div className="h-9 w-9 rounded-full bg-slate-700 flex items-center justify-center border border-slate-600">
-            <span className="font-medium text-sm text-slate-300">JD</span>
+            <span className="font-medium text-sm text-slate-300">{userInitials}</span>
           </div>
           <div className="flex-1 overflow-hidden">
-            <p className="text-sm font-medium text-slate-200 truncate">Dr. Jane Doe</p>
-            <p className="text-xs text-slate-500 truncate">Senior Archaeologist</p>
+            <p className="text-sm font-medium text-slate-200 truncate">{userName}</p>
+            <p className="text-xs text-slate-500 truncate">{userTitle}</p>
           </div>
         </div>
       </div>

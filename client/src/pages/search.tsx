@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { RECENT_ARTIFACTS, Artifact } from "@/lib/mockData";
-import { Search as SearchIcon, Filter, MapPin, Calendar, Tag, ChevronRight } from "lucide-react";
+import { Search as SearchIcon, Filter, Calendar, Tag, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 
 export default function SearchPage() {
@@ -32,11 +32,7 @@ export default function SearchPage() {
             <h1 className="text-3xl font-serif font-bold text-primary">Research Database</h1>
             <p className="text-muted-foreground">Search through compressed archaeological records.</p>
           </div>
-          <div className="flex gap-2">
-             <Button variant="outline" className="gap-2">
-               <MapPin className="h-4 w-4" /> Map View
-             </Button>
-          </div>
+          <div className="flex gap-2" />
         </div>
 
         {/* Search Bar */}
@@ -118,7 +114,7 @@ function ArtifactCard({ artifact }: { artifact: Artifact }) {
                       <Calendar className="h-3 w-3" /> {artifact.era} (~{Math.abs(artifact.year_approx)} BCE)
                     </span>
                     <span className="flex items-center gap-1">
-                      <MapPin className="h-3 w-3" /> {artifact.location}
+                      {artifact.location}
                     </span>
                   </div>
                 </div>

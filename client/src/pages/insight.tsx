@@ -142,48 +142,29 @@ export default function InsightPage() {
 
           {/* Sidebar Metadata */}
           <div className="space-y-6">
-             <Card className="bg-slate-900 text-white border-slate-800">
-               <CardContent className="p-6">
-                 <h3 className="font-serif font-bold mb-4">Geolocation</h3>
-                 <div className="aspect-video bg-slate-800 rounded-lg flex items-center justify-center mb-4 border border-slate-700">
-                   <span className="text-slate-500 text-sm">Map Visualization Preview</span>
-                 </div>
-                 <div className="grid grid-cols-2 gap-4 text-sm">
-                   <div>
-                     <span className="text-slate-500 block text-xs">Lat</span>
-                     {artifact.coordinates[0]}
-                   </div>
-                   <div>
-                     <span className="text-slate-500 block text-xs">Long</span>
-                     {artifact.coordinates[1]}
-                   </div>
-                 </div>
-               </CardContent>
-             </Card>
-
-             <Card>
-               <CardHeader>
-                 <CardTitle className="text-base">Metadata</CardTitle>
-               </CardHeader>
-               <CardContent className="space-y-3 text-sm">
-                  <div className="flex justify-between py-2 border-b">
-                    <span className="text-slate-500">Accession No.</span>
-                    <span className="font-mono">{artifact.id}</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b">
-                    <span className="text-slate-500">Excavator</span>
-                    <span>Team Alpha</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b">
-                    <span className="text-slate-500">Storage</span>
-                    <span>Zone B-12</span>
-                  </div>
-                  <div className="flex justify-between py-2">
-                    <span className="text-slate-500">Last Updated</span>
-                    <span>2 days ago</span>
-                  </div>
-               </CardContent>
-             </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Metadata</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-slate-500">Accession No.</span>
+                  <span className="font-mono">{artifact.id}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-slate-500">Excavator</span>
+                  <span>Team Alpha</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-slate-500">Storage</span>
+                  <span>Zone B-12</span>
+                </div>
+                <div className="flex justify-between py-2">
+                  <span className="text-slate-500">Last Updated</span>
+                  <span>2 days ago</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>

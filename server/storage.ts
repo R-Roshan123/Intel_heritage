@@ -1,38 +1,42 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { type IUser, User, type InsertUser } from "@shared/schema";
+import connectToDatabase from "./database";
 
 // modify the interface with any CRUD methods
 // you might need
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getUser(id: string): Promise<IUser | null>;
+  getUserByUsername(username: string): Promise<IUser | null>;
+  getUserByEmail(email: string): Promise<IUser | null>;
+  createUser(user: InsertUser): Promise<IUser>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
+export class MongoStorage implements IStorage {
   constructor() {
-    this.users = new Map();
+    // Connect to database when storage is initialized
+    connectToDatabase().catch(console.error);
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getUser(id: string): Promise<IUser | null> {
+    await connectToDatabase();
+    return User.findById(id);
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async getUserByUsername(username: string): Promise<IUser | null> {
+    await connectToDatabase();
+    return User.findOne({ username });
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getUserByEmail(email: string): Promise<IUser | null> {
+    await connectToDatabase();
+    return User.findOne({ email });
+  }
+
+  async createUser(insertUser: InsertUser): Promise<IUser> {
+    await connectToDatabase();
+    const user = new User(insertUser);
+    return user.save();
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new MongoStorage();
